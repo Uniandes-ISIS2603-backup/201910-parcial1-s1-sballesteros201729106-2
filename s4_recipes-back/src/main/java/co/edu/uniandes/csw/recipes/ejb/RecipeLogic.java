@@ -27,9 +27,23 @@ public class RecipeLogic {
     //TODO crear el método createRecipe
 
      public RecipeEntity createEditorial(RecipeEntity recipeEntity) throws BusinessLogicException {
-        if (persistence.findByName(recipeEntity.getName()) != null) {
-            throw new BusinessLogicException("Ya existe una Recipe con el nombre \"" + recipeEntity.getName() + "\"");
+        if (recipeEntity.getName() == null) {
+            throw new BusinessLogicException("El recipe no puede ser nulo \"" + recipeEntity.getName() + "\"");
         }
+        if (persistence.findByName(recipeEntity.getName()).equals("")) {
+            throw new BusinessLogicException("El recipe no puede ser vacio \"" + recipeEntity.getName() + "\"");
+        }
+        if (persistence.findByName(recipeEntity.getName())!=null) {
+            throw new BusinessLogicException("El recipe no puede estar duplicado \"" + recipeEntity.getName() + "\"");
+        }
+        if (persistence.findByDescripción(recipeEntity.getDescription())==null) {
+            throw new BusinessLogicException("La descripción no puede ser nulo \"" + recipeEntity.getName() + "\"");
+        }
+        if (persistence.findByDescripción(recipeEntity.getDescription()).equals("")) {
+            throw new BusinessLogicException("La descripción no puede ser vacio \"" + recipeEntity.getName() + "\"");
+        }
+        
+        
         // Invoca la persistencia para crear la editorial
         persistence.create(recipeEntity);
         return recipeEntity;
