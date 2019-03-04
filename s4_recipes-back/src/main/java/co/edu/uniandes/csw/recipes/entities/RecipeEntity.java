@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.recipes.entities;
 
 import javax.persistence.Entity;
+import uk.co.jemos.podam.common.PodamStringValue;
 
 /**
  *
@@ -13,7 +14,10 @@ import javax.persistence.Entity;
  */
 @Entity
 public class RecipeEntity extends BaseEntity {
+    @PodamStringValue(length = 30)
     private String name;
+    
+    @PodamStringValue(length = 150)
     private String description;
     
     public RecipeEntity(){
@@ -22,6 +26,7 @@ public class RecipeEntity extends BaseEntity {
     /**
      * @return the name
      */
+    
     public String getName() {
         return name;
     }

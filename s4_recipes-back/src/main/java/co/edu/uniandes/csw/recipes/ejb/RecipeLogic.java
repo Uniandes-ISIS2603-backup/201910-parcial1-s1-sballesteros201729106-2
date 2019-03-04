@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.recipes.ejb;
 
 import co.edu.uniandes.csw.recipes.entities.RecipeEntity;
+import co.edu.uniandes.csw.recipes.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.recipes.persistence.RecipePersistence;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -25,5 +26,12 @@ public class RecipeLogic {
 
     //TODO crear el método createRecipe
 
-
+     public RecipeEntity createEditorial(RecipeEntity recipeEntity) throws BusinessLogicException {
+        if (persistence.findByName(recipeEntity.getName()) != null) {
+            throw new BusinessLogicException("Ya existe una Recipe con el nombre \"" + recipeEntity.getName() + "\"");
+        }
+        // Invoca la persistencia para crear la editorial
+        persistence.create(recipeEntity);
+        return recipeEntity;
+    }
 }
